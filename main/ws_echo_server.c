@@ -20,6 +20,7 @@
 // #include "protocol_examples_common.h"
 
 #include <esp_http_server.h>
+#include "mcp4725.h"
 
 #define LED_GPIO CONFIG_LED_GPIO
 
@@ -219,6 +220,8 @@ void app_main(void)
     gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
 
     gpio_set_level(LED_GPIO, 0);
+
+    mcp4725_init();
 
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
