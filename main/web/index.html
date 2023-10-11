@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            padding: 20px 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Тачка 6</h1>
+
+    Counter: <span id="counter">0</span>
+
+    <button onclick="ledOn()">Led On</button>
+    <button onclick="ledOff()">Led Off</button>
+
+    <!-- Embeded script -->
+    <script>
+        let counter = 0;
+        setInterval(() => {
+            counter++;
+            document.getElementById('counter').innerHTML = counter;
+        }, 1000);
+
+        // let ws = new WebSocket(`ws://${window.location.hostname}:80/ws`);
+        let ws = new WebSocket(`ws://192.168.4.1:80/ws`);
+        ws.onmessage = (event) => {
+            console.log(event.data);
+        }
+        ws.onopen = () => {
+            console.log('Connected');
+        }
+        ws.onclose = () => {
+            console.log('Disconnected');
+        }
+        // Connect
+
+        ledOn = () => {
+            ws.send('ledOn');
+        }
+
+        ledOff = () => {
+            ws.send('ledOff');
+        }
+        
+
+    </script>
+
+</body>
+</html>
